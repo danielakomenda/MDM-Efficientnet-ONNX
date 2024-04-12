@@ -1,8 +1,8 @@
 function checkFiles(files) {
     console.log(files);
 
-    if (files.length != 1) {
-        alert("Bitte genau eine Datei hochladen.")
+    if (files.length !== 1) {
+        alert("Bitte genau eine Datei hochladen.");
         return;
     }
 
@@ -15,34 +15,35 @@ function checkFiles(files) {
     answerPart.style.visibility = "visible";
     const file = files[0];
 
-    // Preview
-    if (file) {
-        preview.src = URL.createObjectURL(files[0])
+    // Preview Image
+    if (file && file.type.startsWith('image')) {
+        preview.src = URL.createObjectURL(file);
+    } else {
+        alert("Bitte ein Bild hochladen.");
+        return;
     }
 
     // Upload
     const formData = new FormData();
-    for (const name in files) {
-        formData.append(name, files[name]);
-    }
+    formData.append('0', file); // Ensure you're appending the file correctly
 
     fetch('/analyze', {
         method: 'POST',
-        headers: {
-        },
         body: formData
-    }).then(
-        response => {
-            console.log(response)
-            response.text().then(function (text) {
-                answer.innerHTML = text;
-            });
-
+    }).then(response => {
+        if (response.ok) {
+            return response.json(); // Parse JSON data from the response
+        } else {
+            throw new Error('Network response was not ok.');
         }
-    ).then(
-        success => console.log(success)
-    ).catch(
-        error => console.log(error)
-    );
-
+    }).then(data => {
+        console.log(data);
+        answer.innerHTML = '';
+        data.forEach(item => {
+            answer.innerHTML += `${item.label} (${item.probability})<br>`; // Display each item as a new line
+        });
+    }).catch(error => {
+        console.log('There has been a problem with your fetch operation:', error);
+        alert('Fehler beim Hochladen oder Verarbeiten der Datei.');
+    });
 }
