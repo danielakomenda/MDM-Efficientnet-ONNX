@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>ML EfficientNet-Lite4</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="script.js" async></script>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <h1>ML EfficientNet-Lite4</h1>
+        <p>ONNX Model Demonstration by mosa (Version 2.0)</p>
+
+        <form>
+            <div class="form-group">
+                <label for="exampleFormControlFile1">Bitte Bild hochladen (jpeg, png)</label>
+                <input type="file" accept="image/png, image/jpeg" class="form-control-file" id="image" name="image"
+                    onchange="checkFiles(this.files);">
+            </div>
+        </form>
+
+        <div id="answerPart" style="visibility: hidden;">
+            <p><b>Answer:</b>
+            <div id="answer"></div>
+            </p>
+
+            <p id="previewPart"><b>Analyzed Image:</b>
+            <p><img id="preview" width="300" src="#" alt="preview" /></p>
+            </p>
+        </div>
+
+        <div>
+            <p>Links:<br>
+                <a href="https://github.com/onnx/models/tree/main/validated/vision/classification/efficientnet-lite4">EfficientNet-Lite4
+                    Repository</a><br>
+                <a href="https://onnx.ai/">ONNX Website</a>
+            </p>
+        </diV>
+    </div>
+
+
+</body>
+
+</html>
